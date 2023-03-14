@@ -23,6 +23,25 @@ character.style.left = x + 'px'
 character.style.bottom = y + 'px'
 }
 
+setInterval(moveCharacter, 1)
+
+setInterval(function() { 
+    if (direction === 'west'){
+        x = x - 1
+    }
+    if (direction === 'north'){
+        y = y + 1
+    }
+    if (direction === 'east'){
+        x = x + 1
+    }
+    if (direction === 'south'){
+        y = y - 1
+    }
+    character.style.left = x + 'px'
+    character.style.bottom = y + 'px'
+}, 1)
+
 setInterval(moveCharacter(), 1)
 
 document.addEventListener('keydown', function(e) {
@@ -43,6 +62,43 @@ document.addEventListener('keydown', function(e) {
     }
 
 })
+
+document.addEventListener('keyup', function(e) {
+    direction = null
+    cancelIdleCallback(direction)
+})
+
+
+    return {
+        to: moveToCoordinates,
+        withArrowKeys: moveWithArrowKeys
+    }        
+
+
+
+const character = newImage('assets/green-character/static.gif')
+
+function handleDirectionChange(direction){
+    if(direction === null){
+        character.src = 'assets/green-character/static.gif'
+    }
+    if(direction === 'west'){
+        character.src = 'assets/green-character/west.gif'
+    }
+    if(direction === 'north'){
+        character.src = 'assets/green-character/north.gif'
+    }
+    if(direction === 'east'){
+        character.src = 'assets/green-character/east.gif'
+    }
+    if(direction === 'south'){
+        character.src = 'assets/green-character/south.gif'
+    }
+}
+
+move(character).withArrowKeys(100, 250, handleDirectionChange)
+
+
 
 move(newImage('assets/tree.png')).to(200, 450)
 move(newImage('assets/pillar.png')).to(350, 250)
